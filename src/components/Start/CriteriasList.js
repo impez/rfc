@@ -15,8 +15,15 @@ import { addCriterion, removeCriterion } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    width: "80%",
+    width: "50%",
     margin: theme.spacing(1),
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+  },
+  item: {
+    width: "75%",
+    backgroundColor: "rgb(20,20,20, 0.02), borderRadius: 3px",
     [theme.breakpoints.down("md")]: {
       width: "100%",
     },
@@ -28,7 +35,7 @@ function CriteriasList(props) {
 
   const listItems = props.items.map((item) => {
     return (
-      <ListItem key={item}>
+      <ListItem className={classes.item} key={item}>
         <ListItemText primary={item} style={{ cursor: "default" }} />
         <ListItemIcon>
           <IconButton

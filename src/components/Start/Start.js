@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Stepper,
   Step,
@@ -10,6 +9,7 @@ import {
   Typography,
   Grid,
   TextField,
+  makeStyles,
 } from "@material-ui/core";
 import SimpleAccordion from "./SimpleAccordion";
 import CriteriasList from "./CriteriasList";
@@ -17,6 +17,7 @@ import VariantsList from "./VariantsList";
 import InputForm from "./CriteriasList";
 import { connect } from "react-redux";
 import { updateGoal, setRoute } from "../../actions";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,16 +49,10 @@ function getSteps() {
 function Start(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [goal, setGoal] = React.useState("");
   const steps = getSteps();
 
   const handleGoalChange = (e) => {
-    const updatedGoal = e.target.value;
-
-    setGoal(updatedGoal);
-    props.updateGoal(updatedGoal);
-
-    console.log(props);
+    props.updateGoal(e.target.value);
   };
 
   function getStepContent(step) {
@@ -68,7 +63,7 @@ function Start(props) {
             <TextField
               id="standard-basic"
               label="Wpisz cel"
-              value={goal}
+              value={props.goal}
               onChange={handleGoalChange}
             />
           </div>

@@ -12,7 +12,6 @@ const withList = (WrappedComponent, settings) => {
 
     const onTextChange = (e) => {
       setText(e.target.value);
-      console.log(props);
     };
 
     const onItemAdd = () => {

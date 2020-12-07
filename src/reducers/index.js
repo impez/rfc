@@ -28,7 +28,7 @@ export const variantsReducer = (state = [], action) => {
     case "ADD_VARIANT":
       return [...state, action.payload];
 
-    case "REMOVE_CRITERION":
+    case "REMOVE_VARIANT":
       return state.filter((item) => item !== action.payload);
 
     default:

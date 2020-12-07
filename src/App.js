@@ -16,6 +16,7 @@ import {
 } from "@material-ui/icons";
 import TabPanel from "./components/Navigation/TabPanel";
 import Start from "./components/Start/Start";
+import Comparisons from "./components/Comparisons/Comparisons";
 import { setRoute } from "./actions";
 import { connect } from "react-redux";
 
@@ -87,7 +88,9 @@ const App = (props) => {
         <Start />
       </TabPanel>
 
-      <TabPanel value={route} index="kryteria" padding={padding}></TabPanel>
+      <TabPanel value={route} index="kryteria" padding={padding}>
+        <Comparisons />
+      </TabPanel>
 
       <TabPanel value={route} index="warianty" padding={padding}></TabPanel>
 
