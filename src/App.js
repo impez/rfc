@@ -23,7 +23,7 @@ import { connect } from "react-redux";
 const menuItems = ["start", "kryteria", "warianty", "ranking", "decydenci"];
 
 const App = (props) => {
-  const { route, setRoute } = props;
+  const { route, setRoute, criterias, variants } = props;
   const matches = useMediaQuery("(min-width:900px)");
 
   const [padding, setPadding] = React.useState(matches ? 3 : 0);
@@ -89,10 +89,30 @@ const App = (props) => {
       </TabPanel>
 
       <TabPanel value={route} index="kryteria" padding={padding}>
-        <Comparisons />
+        <Comparisons items={criterias} />
+        <Button
+          fullWidth
+          size="large"
+          variant="contained"
+          style={{ margin: "0.5em 0" }}
+          onClick={() => setRoute("warianty")}
+        >
+          Dalej
+        </Button>
       </TabPanel>
 
-      <TabPanel value={route} index="warianty" padding={padding}></TabPanel>
+      <TabPanel value={route} index="warianty" padding={padding}>
+        <Comparisons items={variants} criterias={criterias} />
+        <Button
+          fullWidth
+          size="large"
+          variant="contained"
+          style={{ margin: "0.5em 0" }}
+          onClick={() => setRoute("ranking")}
+        >
+          Zakończ
+        </Button>
+      </TabPanel>
 
       <TabPanel value={route} index="ranking" padding={padding}></TabPanel>
 

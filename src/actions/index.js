@@ -1,7 +1,14 @@
-export const updateGoal = (goal) => {
+export const updateCriteriaSlider = (leftComp, rightComp, value) => {
   return {
-    type: "UPDATE_GOAL",
-    payload: goal,
+    type: "UPDATE_CRITERIA_SLIDER",
+    payload: { leftComp, rightComp, value },
+  };
+};
+
+export const updateVariantSlider = (criteria, leftComp, rightComp, value) => {
+  return {
+    type: "UPDATE_VARIANT_SLIDER",
+    payload: { criteria, leftComp, rightComp, value },
   };
 };
 
@@ -34,8 +41,16 @@ export const removeVariant = (variant) => {
 };
 
 export const setRoute = (route) => {
+  window.scrollTo(0, 0);
   return {
     type: "SET_ROUTE",
     payload: route,
+  };
+};
+
+export const updateGoal = (goal) => {
+  return {
+    type: "UPDATE_GOAL",
+    payload: goal,
   };
 };

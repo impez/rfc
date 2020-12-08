@@ -1,9 +1,42 @@
 import { combineReducers } from "redux";
+import cloneDeep from "lodash.clonedeep";
 
 export const goalReducer = (state = "", action) => {
   switch (action.type) {
     case "UPDATE_GOAL":
       return action.payload;
+
+    default:
+      return state;
+  }
+};
+
+export const criteriasSlidersReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "UPDATE_CRITERIA_SLIDER":
+      const cloneState = { ...state };
+      const { leftComp, rightComp, value } = action.payload;
+      const pair = `${leftComp}:${rightComp}`;
+
+      cloneState[pair] = value;
+      return cloneState;
+
+    default:
+      return state;
+  }
+};
+
+export const variantsSlidersReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "UPDATE_VARIANT_SLIDER":
+      const cloneState = cloneDeep(state);
+      const { criteria, leftComp, rightComp, value } = action.payload;
+      const pair = `${leftComp}:${rightComp}`;
+
+      if (!cloneState[criteria]) cloneState[criteria] = {};
+
+      cloneState[criteria][pair] = value;
+      return cloneState;
 
     default:
       return state;
@@ -51,4 +84,6 @@ export default combineReducers({
   goal: goalReducer,
   criterias: criterionsReducer,
   variants: variantsReducer,
+  criteriasSliders: criteriasSlidersReducer,
+  variantsSliders: variantsSlidersReducer,
 });
