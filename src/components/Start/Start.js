@@ -5,8 +5,8 @@ import {
   StepLabel,
   StepContent,
   Button,
-  Paper,
   Typography,
+  Paper,
   Grid,
   TextField,
   makeStyles,
@@ -14,14 +14,12 @@ import {
 import SimpleAccordion from "./SimpleAccordion";
 import CriteriasList from "./CriteriasList";
 import VariantsList from "./VariantsList";
-import InputForm from "./CriteriasList";
 import { connect } from "react-redux";
-import { updateGoal, setRoute } from "../../actions";
-import GitHubIcon from "@material-ui/icons/GitHub";
+import { updateGoal, updateExpertName, setRoute } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: "90%",
     margin: "0 auto",
   },
   button: {
@@ -53,6 +51,10 @@ function Start(props) {
 
   const handleGoalChange = (e) => {
     props.updateGoal(e.target.value);
+  };
+
+  const handleTextChange = (e) => {
+    props.updateExpertName(e.target.value);
   };
 
   function getStepContent(step) {
@@ -97,55 +99,65 @@ function Start(props) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
   return (
-    <Grid container>
-      <Grid item xs={12} md={7}>
-        <div className={classes.root}>
-          <Stepper
-            className={classes.stepper}
-            activeStep={activeStep}
-            orientation="vertical"
-          >
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-                <StepContent>
-                  <Typography>{getStepContent(index)}</Typography>
-                  <div className={classes.actionsContainer}>
-                    <div>
-                      <Button
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
-                        className={classes.button}
-                      >
-                        wstecz
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                      >
-                        {activeStep === steps.length - 1
-                          ? "rozpocznij"
-                          : "dalej"}
-                      </Button>
+    <Paper style={{ display: "flex" }}>
+      <Grid container>
+        <Grid item xs={12} md={7}>
+          <div className={classes.root}>
+            <Stepper
+              className={classes.stepper}
+              activeStep={activeStep}
+              orientation="vertical"
+            >
+              {steps.map((label, index) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                  <StepContent>
+                    <Typography>{getStepContent(index)}</Typography>
+                    <div className={classes.actionsContainer}>
+                      <div>
+                        <Button
+                          disabled={activeStep === 0}
+                          onClick={handleBack}
+                          className={classes.button}
+                        >
+                          wstecz
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={handleNext}
+                          className={classes.button}
+                        >
+                          {activeStep === steps.length - 1
+                            ? "rozpocznij"
+                            : "dalej"}
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
-        </div>
+                  </StepContent>
+                </Step>
+              ))}
+            </Stepper>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <SimpleAccordion />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <TextField
+            label="ID (Opcjonalnie)"
+            size="small"
+            onChange={handleTextChange}
+            value={props.expertName}
+            style={{
+              margin: "1em",
+            }}
+            variant="filled"
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={5}>
-        <SimpleAccordion />
-      </Grid>
-    </Grid>
+    </Paper>
   );
 }
 
@@ -153,4 +165,8 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { updateGoal, setRoute })(Start);
+export default connect(mapStateToProps, {
+  updateGoal,
+  updateExpertName,
+  setRoute,
+})(Start);

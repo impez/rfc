@@ -4,9 +4,8 @@ import {
   Button,
   Tab,
   Tabs,
-  makeStyles,
   useMediaQuery,
-  Typography,
+  makeStyles,
 } from "@material-ui/core";
 import {
   PlayArrow as StartIcon,
@@ -17,14 +16,23 @@ import {
 import TabPanel from "./components/Navigation/TabPanel";
 import Start from "./components/Start/Start";
 import Comparisons from "./components/Comparisons/Comparisons";
+import Ranking from "./components/Ranking/Ranking";
 import { setRoute } from "./actions";
 import { connect } from "react-redux";
 
 const menuItems = ["start", "kryteria", "warianty", "ranking", "decydenci"];
 
+const useStyles = makeStyles((theme) => ({
+  flexContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+}));
+
 const App = (props) => {
   const { route, setRoute, criterias, variants } = props;
   const matches = useMediaQuery("(min-width:900px)");
+  const classes = useStyles();
 
   const [padding, setPadding] = React.useState(matches ? 3 : 0);
   const [tabsVariant, setTabsVariant] = React.useState(
@@ -76,9 +84,10 @@ const App = (props) => {
       <AppBar position="static">
         <Tabs
           value={route}
-          variant={tabsVariant}
+          variant="scrollable"
           scrollButtons="on"
           onChange={handleChange}
+          classes={classes}
         >
           {tabItems}
         </Tabs>
@@ -114,7 +123,9 @@ const App = (props) => {
         </Button>
       </TabPanel>
 
-      <TabPanel value={route} index="ranking" padding={padding}></TabPanel>
+      <TabPanel value={route} index="ranking" padding={padding}>
+        <Ranking />
+      </TabPanel>
 
       <TabPanel value={route} index="decydenci" padding={padding}></TabPanel>
     </div>

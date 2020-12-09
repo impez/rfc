@@ -1,14 +1,26 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Divider } from "@material-ui/core";
 import { updateCriteriaSlider, updateVariantSlider } from "../../../actions";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "2.5em auto",
+    opacity: "0.85",
+    transition: "0.15s opacity, 0.2s filter, 0.1s background-color",
     width: "55%",
     [theme.breakpoints.down("md")]: {
       width: "100%",
+      opacity: "1",
+      filter: "blur(0px)",
+    },
+    "&:hover": {
+      opacity: "1",
+      filter: "blur(0px)",
+      backgroundColor: "rgba(0,0,0,0.01)",
+    },
+    "&:active": {
+      backgroundColor: "rgba(0,0,0,0.02)",
     },
   },
 }));
@@ -65,6 +77,7 @@ const withSlider = (WrappedComponent, settings) => {
 
     return (
       <div className={classes.root}>
+        <Divider style={{ opacity: "0.5" }} variant="fullWidth"></Divider>
         <WrappedComponent
           {...props}
           handleChange={handleChange}
@@ -73,6 +86,7 @@ const withSlider = (WrappedComponent, settings) => {
           min={min}
           max={max}
         />
+        <Divider style={{ opacity: "0.5" }} variant="fullWidth"></Divider>
       </div>
     );
   });

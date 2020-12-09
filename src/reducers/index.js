@@ -1,6 +1,26 @@
 import { combineReducers } from "redux";
 import cloneDeep from "lodash.clonedeep";
 
+export const nameReducer = (state = "Decydent-1", action) => {
+  switch (action.type) {
+    case "UPDATE_EXPERT_NAME":
+      return action.payload;
+
+    default:
+      return state;
+  }
+};
+
+export const expertsGroupReducer = (state = [], action) => {
+  switch (action.type) {
+    case "ADD_EXPERT_METADATA":
+      return [...state, action.payload];
+
+    default:
+      return state;
+  }
+};
+
 export const goalReducer = (state = "", action) => {
   switch (action.type) {
     case "UPDATE_GOAL":
@@ -80,6 +100,8 @@ export const routeReducer = (state = "start", action) => {
 };
 
 export default combineReducers({
+  expertName: nameReducer,
+  expertsGroup: expertsGroupReducer,
   route: routeReducer,
   goal: goalReducer,
   criterias: criterionsReducer,

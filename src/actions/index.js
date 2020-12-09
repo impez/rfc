@@ -1,3 +1,17 @@
+export const updateExpertName = (expertName) => {
+  return {
+    type: "UPDATE_EXPERT_NAME",
+    payload: expertName,
+  };
+};
+
+export const addExpertMetadata = (metadata) => {
+  return {
+    type: "ADD_EXPERT_METADATA",
+    payload: metadata,
+  };
+};
+
 export const updateCriteriaSlider = (leftComp, rightComp, value) => {
   return {
     type: "UPDATE_CRITERIA_SLIDER",

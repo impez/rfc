@@ -1,13 +1,6 @@
 import React from "react";
 import MultiSlider from "../Sliders/MultiSlider";
 import withComparisons from "./hoc/withComparisons";
-import {
-  Grid,
-  Paper,
-  makeStyles,
-  Typography,
-  Divider,
-} from "@material-ui/core";
 
 const Comparisons = (props) => {
   const sliders = props.pairs.map((pair) => {
@@ -17,6 +10,7 @@ const Comparisons = (props) => {
         leftComp={leftComp}
         rightComp={rightComp}
         criteria={props.criteria}
+        key={`${props.criteria}:${leftComp}:${rightComp}`}
       />
     );
   });

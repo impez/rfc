@@ -1,5 +1,5 @@
 import React from "react";
-import { Slider, makeStyles } from "@material-ui/core";
+import { Slider } from "@material-ui/core";
 import withSlider from "./hoc/withSlider";
 
 const roundNum = (num) => Math.round(num * 100) / 100;

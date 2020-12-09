@@ -40,7 +40,13 @@ const withComparisons = (WrappedComponent) => {
           <Paper className={classes.root} square key={criteria}>
             <Typography className={classes.header} variant="caption">
               Określ preferencję wariantów pod względem:{" "}
-              <Button variant="outlined" style={{ cursor: "default" }}>
+              <Button
+                variant="contained"
+                disableElevation
+                disableFocusRipple
+                size="small"
+                style={{ cursor: "default" }}
+              >
                 {criteria}
               </Button>
             </Typography>
