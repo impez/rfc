@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "2.5em auto",
-    opacity: "0.85",
+    opacity: "0.75",
     transition: "0.15s opacity, 0.2s filter, 0.1s background-color",
     width: "55%",
     [theme.breakpoints.down("md")]: {
@@ -33,9 +33,19 @@ const withSlider = (WrappedComponent, settings) => {
     updateVariantSlider,
   })((props) => {
     const classes = useStyles();
-    const [value, setValue] = React.useState(initValue);
-    const [min, max] = [-8, 8];
     const isCriteriaPresent = props.criteria ? true : false;
+    const [value, setValue] = React.useState(
+      isCriteriaPresent
+        ? props.variantsSliders[props.criteria] === undefined
+          ? [-1, 0, 1]
+          : props.variantsSliders[props.criteria][
+              `${props.leftComp}:${props.rightComp}`
+            ]
+        : Object.keys(props.criteriasSliders).length === 0
+        ? [-1, 0, 1]
+        : props.criteriasSliders[`${props.leftComp}:${props.rightComp}`]
+    );
+    const [min, max] = [-8, 8];
 
     const marks = [
       {
@@ -54,15 +64,13 @@ const withSlider = (WrappedComponent, settings) => {
           props.criteria,
           props.leftComp,
           props.rightComp,
-          initValue
+          value
         );
-      else
-        props.updateCriteriaSlider(props.leftComp, props.rightComp, initValue);
+      else props.updateCriteriaSlider(props.leftComp, props.rightComp, value);
     }, []);
 
     const handleChange = (e, newValue) => {
       setValue(newValue);
-      console.log(props);
 
       if (isCriteriaPresent)
         props.updateVariantSlider(
