@@ -8,7 +8,7 @@ const MultiSlider = (props) => {
   return (
     <Slider
       value={props.value}
-      step={0.01}
+      step={0.1}
       valueLabelDisplay="auto"
       valueLabelFormat={(x) =>
         x >= 0 ? roundNum(x + 1) : roundNum(Math.abs(x) + 1)

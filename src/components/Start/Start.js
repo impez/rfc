@@ -90,6 +90,7 @@ function Start(props) {
   const handleNext = () => {
     if (activeStep >= 2) {
       props.setRoute("kryteria");
+      props.initCb(true);
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

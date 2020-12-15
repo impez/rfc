@@ -26,6 +26,13 @@ export const updateVariantSlider = (criteria, leftComp, rightComp, value) => {
   };
 };
 
+export const resetSliders = () => {
+  return {
+    type: "RESET_SLIDERS",
+    payload: {},
+  };
+};
+
 export const addCriterion = (criterion) => {
   return {
     type: "ADD_CRITERION",

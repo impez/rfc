@@ -1,16 +1,13 @@
 import React from "react";
-import {
-  AHPUser,
-  AHPItem,
-  MathHelper,
-  FuzzyMiddleman,
-} from "../../../ahpLogic";
+import { AHPUser, AHPItem, FuzzyMiddleman } from "../../../ahpLogic";
 import { connect } from "react-redux";
 
 const withRanking = (WrappedComponent) => {
   let decisionMaker;
 
   return connect(mapStateToProps)((props) => {
+    const [userMetadata, setUserMetadata] = React.useState({});
+
     const { criterias, variants, criteriasSliders, variantsSliders } = props;
 
     React.useEffect(() => {
@@ -64,12 +61,11 @@ const withRanking = (WrappedComponent) => {
 
         metadata["finalRank"][variantItem] = sum;
         metadata["expert"] = props.expertName;
-
-        console.log(metadata);
+        setUserMetadata(metadata);
       }
     }, []);
 
-    return <WrappedComponent {...props} />;
+    return <WrappedComponent {...props} metadata={userMetadata} />;
   });
 };
 

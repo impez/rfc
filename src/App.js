@@ -17,6 +17,7 @@ import TabPanel from "./components/Navigation/TabPanel";
 import Start from "./components/Start/Start";
 import Comparisons from "./components/Comparisons/Comparisons";
 import Ranking from "./components/Ranking/Ranking";
+import Experts from "./components/Experts/Experts";
 import { setRoute } from "./actions";
 import { connect } from "react-redux";
 
@@ -34,10 +35,17 @@ const App = (props) => {
   const matches = useMediaQuery("(min-width:900px)");
   const classes = useStyles();
 
+  const [init, setInit] = React.useState(false);
   const [padding, setPadding] = React.useState(matches ? 3 : 0);
   const [tabsVariant, setTabsVariant] = React.useState(
     matches ? "fullWidth" : "scrollable"
   );
+
+  const areSlidersLoaded = () =>
+    Object.keys(props.variantsSliders).length === 0 ||
+    Object.keys(props.criteriasSliders).length === 0
+      ? false
+      : true;
 
   const setIcon = (label, size) => {
     switch (label) {
@@ -57,12 +65,20 @@ const App = (props) => {
 
   const tabItems = menuItems.map((label) => {
     const isBigDisplay = tabsVariant === "fullWidth" ? true : false;
+    let disableCb;
+
+    if (label === "ranking") disableCb = !areSlidersLoaded();
+
+    if (label === "kryteria" || label === "warianty") disableCb = !init;
+
+    if (label === "start") disableCb = init;
 
     return (
       <Tab
         value={label}
         label={isBigDisplay ? label : ""}
         key={label}
+        disabled={disableCb}
         icon={setIcon(label, isBigDisplay ? "default" : "large")}
       />
     );
@@ -77,6 +93,10 @@ const App = (props) => {
 
   const handleChange = (event, newRoute) => {
     setRoute(newRoute);
+  };
+
+  const initAhp = () => {
+    setInit(true);
   };
 
   return (
@@ -94,7 +114,7 @@ const App = (props) => {
       </AppBar>
 
       <TabPanel value={route} index="start" padding={padding}>
-        <Start />
+        <Start initCb={initAhp} />
       </TabPanel>
 
       <TabPanel value={route} index="kryteria" padding={padding}>
@@ -127,7 +147,9 @@ const App = (props) => {
         <Ranking />
       </TabPanel>
 
-      <TabPanel value={route} index="decydenci" padding={padding}></TabPanel>
+      <TabPanel value={route} index="decydenci" padding={padding}>
+        <Experts />
+      </TabPanel>
     </div>
   );
 };

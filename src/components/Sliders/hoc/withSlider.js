@@ -3,6 +3,10 @@ import { makeStyles, Divider } from "@material-ui/core";
 import { updateCriteriaSlider, updateVariantSlider } from "../../../actions";
 import { connect } from "react-redux";
 
+const CustomDivider = () => {
+  return <Divider style={{ opacity: "0.8" }} variant="fullWidth"></Divider>
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "2.5em auto",
@@ -85,7 +89,7 @@ const withSlider = (WrappedComponent, settings) => {
 
     return (
       <div className={classes.root}>
-        <Divider style={{ opacity: "0.5" }} variant="fullWidth"></Divider>
+        <CustomDivider />
         <WrappedComponent
           {...props}
           handleChange={handleChange}
@@ -94,7 +98,7 @@ const withSlider = (WrappedComponent, settings) => {
           min={min}
           max={max}
         />
-        <Divider style={{ opacity: "0.5" }} variant="fullWidth"></Divider>
+        <CustomDivider />
       </div>
     );
   });

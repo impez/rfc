@@ -37,7 +37,7 @@ const withComparisons = (WrappedComponent) => {
     if (props.criterias) {
       const componentsList = props.criterias.map((criteria) => {
         return (
-          <Paper className={classes.root} square key={criteria}>
+          <Paper className={classes.root} key={criteria}>
             <Typography className={classes.header} variant="caption">
               Określ preferencję wariantów pod względem:{" "}
               <Button
@@ -71,7 +71,7 @@ const withComparisons = (WrappedComponent) => {
       );
     } else {
       return (
-        <Paper className={classes.root} square>
+        <Paper className={classes.root}>
           <Typography className={classes.header} variant="caption">
             Określ preferencję kryteriów
           </Typography>

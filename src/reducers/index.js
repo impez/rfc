@@ -41,6 +41,9 @@ export const criteriasSlidersReducer = (state = {}, action) => {
       cloneState[pair] = value;
       return cloneState;
 
+    case "RESET_SLIDERS":
+      return {};
+
     default:
       return state;
   }
@@ -57,6 +60,9 @@ export const variantsSlidersReducer = (state = {}, action) => {
 
       cloneState[criteria][pair] = value;
       return cloneState;
+
+    case "RESET_SLIDERS":
+      return {};
 
     default:
       return state;
