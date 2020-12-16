@@ -9,11 +9,12 @@ const MultiSlider = (props) => {
     <Slider
       value={props.value}
       step={0.1}
-      valueLabelDisplay="auto"
+      valueLabelDisplay="off"
       valueLabelFormat={(x) =>
         x >= 0 ? roundNum(x + 1) : roundNum(Math.abs(x) + 1)
       }
       marks={props.marks}
+      orientation="vertical"
       onChange={props.handleChange}
       min={props.min}
       max={props.max}

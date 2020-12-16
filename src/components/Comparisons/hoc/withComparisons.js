@@ -20,8 +20,6 @@ const pairs = (arr) => {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    flexDirection: "column",
-    width: "100%",
     padding: "2.5em",
   },
   header: {
@@ -38,7 +36,11 @@ const withComparisons = (WrappedComponent) => {
       const componentsList = props.criterias.map((criteria) => {
         return (
           <Paper className={classes.root} key={criteria}>
-            <Typography className={classes.header} variant="caption">
+            <Typography
+              style={{ position: "absolute" }}
+              className={classes.header}
+              variant="caption"
+            >
               Określ preferencję wariantów pod względem:{" "}
               <Button
                 variant="contained"
@@ -60,23 +62,17 @@ const withComparisons = (WrappedComponent) => {
         );
       });
 
-      return (
-        <div>
-          {/*If we have criterias to which we wanna compare, then loop through
-           those criterias and return however many components there needs to
-           be... and pass additional parameter, that is which Criteria it's
-           compared to.*/}
-          {componentsList}
-        </div>
-      );
+      return <div>{componentsList}</div>;
     } else {
       return (
         <Paper className={classes.root}>
-          <Typography className={classes.header} variant="caption">
-            Określ preferencję kryteriów
+          <Typography
+            style={{ position: "absolute" }}
+            className={classes.header}
+            variant="caption"
+          >
+            Określ preferencję kryteriów:
           </Typography>
-          <Divider style={{ marginTop: "1em" }} />
-
           <WrappedComponent {...props} pairs={pairs(props.items)} />
         </Paper>
       );

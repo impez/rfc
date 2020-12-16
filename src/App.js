@@ -6,6 +6,7 @@ import {
   Tabs,
   useMediaQuery,
   makeStyles,
+  Snackbar,
 } from "@material-ui/core";
 import {
   PlayArrow as StartIcon,
@@ -13,6 +14,7 @@ import {
   EqualizerSharp as RankingIcon,
   GroupSharp as ExpertsIcon,
 } from "@material-ui/icons";
+import MuiAlert from "@material-ui/lab/Alert";
 import TabPanel from "./components/Navigation/TabPanel";
 import Start from "./components/Start/Start";
 import Comparisons from "./components/Comparisons/Comparisons";
@@ -23,6 +25,10 @@ import { connect } from "react-redux";
 
 const menuItems = ["start", "kryteria", "warianty", "ranking", "decydenci"];
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="standard" {...props} />;
+}
+
 const useStyles = makeStyles((theme) => ({
   flexContainer: {
     justifyContent: "center",
@@ -31,15 +37,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = (props) => {
-  const { route, setRoute, criterias, variants } = props;
+  const { route, setRoute, criterias, variants, expertName } = props;
   const matches = useMediaQuery("(min-width:900px)");
   const classes = useStyles();
 
   const [init, setInit] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const [padding, setPadding] = React.useState(matches ? 3 : 0);
   const [tabsVariant, setTabsVariant] = React.useState(
     matches ? "fullWidth" : "scrollable"
   );
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const areSlidersLoaded = () =>
     Object.keys(props.variantsSliders).length === 0 ||
@@ -69,7 +84,8 @@ const App = (props) => {
 
     if (label === "ranking") disableCb = !areSlidersLoaded();
 
-    if (label === "kryteria" || label === "warianty") disableCb = !init;
+    if (label === "kryteria" || label === "warianty" || label === "decydenci")
+      disableCb = !init;
 
     if (label === "start") disableCb = init;
 
@@ -90,6 +106,10 @@ const App = (props) => {
     setTabsVariant(newVariant);
     setPadding(padding);
   });
+
+  React.useEffect(() => {
+    setOpen(true);
+  }, [route]);
 
   const handleChange = (event, newRoute) => {
     setRoute(newRoute);
@@ -128,6 +148,12 @@ const App = (props) => {
         >
           Dalej
         </Button>
+
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="info">
+            Kontynuacja jako {expertName}
+          </Alert>
+        </Snackbar>
       </TabPanel>
 
       <TabPanel value={route} index="warianty" padding={padding}>

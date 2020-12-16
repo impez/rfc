@@ -4,17 +4,21 @@ import { updateCriteriaSlider, updateVariantSlider } from "../../../actions";
 import { connect } from "react-redux";
 
 const CustomDivider = () => {
-  return <Divider style={{ opacity: "0.8" }} variant="fullWidth"></Divider>
-}
+  return <Divider style={{ opacity: "0.8" }} variant="fullWidth"></Divider>;
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "2.5em auto",
-    opacity: "0.75",
+    margin: "2em", // tutaj 2em auto dla standardowego
+    // slidery się środkują, które mają więcej miejsca wtedy
+    opacity: "0.65",
+    filter: "blur(1px)",
+    padding: "2em",
     transition: "0.15s opacity, 0.2s filter, 0.1s background-color",
-    width: "55%",
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
+    width: "15%",
+    height: "300px",
+    [theme.breakpoints.down("sm")]: {
+      width: "20%",
       opacity: "1",
       filter: "blur(0px)",
     },

@@ -8,6 +8,7 @@ import {
   Typography,
   Paper,
   Grid,
+  Snackbar,
   TextField,
   makeStyles,
 } from "@material-ui/core";
@@ -16,6 +17,11 @@ import CriteriasList from "./CriteriasList";
 import VariantsList from "./VariantsList";
 import { connect } from "react-redux";
 import { updateGoal, updateExpertName, setRoute } from "../../actions";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="standard" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,10 +50,45 @@ function getSteps() {
   return ["Ustal cel procesu", "Dobierz kryteria", "Dobierz warianty"];
 }
 
+function isEmptyString(str) {
+  if (str.replace(/\s/g, "") == "") {
+    return true;
+  } else return false;
+}
+
+function errorMessage(step) {
+  switch (step) {
+    case 0:
+      return "Cel nie może być pusty";
+
+    case 1:
+      return "Wprowadź minimum dwa kryteria";
+
+    case 2:
+      return "Wprowadź minimum dwa warianty/opcje";
+
+    default:
+      break;
+  }
+}
+
 function Start(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleGoalChange = (e) => {
     props.updateGoal(e.target.value);
@@ -88,12 +129,21 @@ function Start(props) {
   }
 
   const handleNext = () => {
-    if (activeStep >= 2) {
-      props.setRoute("kryteria");
-      props.initCb(true);
-    }
+    if (activeStep === 0 && isEmptyString(props.goal)) {
+      setOpen(true);
+    } else if (activeStep === 1 && props.criterias.length < 2) {
+      setOpen(true);
+    } else if (activeStep === 2 && props.variants.length < 2) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      if (activeStep >= 2) {
+        props.setRoute("kryteria");
+        props.initCb(true);
+      }
+    }
   };
 
   const handleBack = () => {
@@ -101,9 +151,9 @@ function Start(props) {
   };
 
   return (
-    <Paper style={{ display: "flex" }}>
+    <Paper>
       <Grid container>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={6}>
           <div className={classes.root}>
             <Stepper
               className={classes.stepper}
@@ -142,7 +192,7 @@ function Start(props) {
             </Stepper>
           </div>
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={6}>
           <SimpleAccordion />
         </Grid>
         <Grid item xs={12} md={12}>
@@ -158,6 +208,12 @@ function Start(props) {
           />
         </Grid>
       </Grid>
+
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {errorMessage(activeStep)}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 }

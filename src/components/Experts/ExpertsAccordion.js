@@ -19,7 +19,7 @@ export default function SimpleAccordion({ expertsData }) {
         key={data.expert}
         item
         xs={12}
-        md={expertsData.length <= 1 ? 12 : 6}
+        md={expertsData.length <= 1 ? 12 : expertsData.length === 2 ? 6 : 4}
       >
         <Accordion square>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>

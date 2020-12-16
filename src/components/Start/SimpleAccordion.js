@@ -26,7 +26,7 @@ export default function SimpleAccordion() {
   return (
     <div className={classes.root}>
       <Accordion square>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary className="accordion" expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>Czym jest AHP</Typography>
         </AccordionSummary>
 
@@ -38,20 +38,7 @@ export default function SimpleAccordion() {
         </AccordionDetails>
       </Accordion>
       <Accordion square>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>
-            Jak korzystać z aplikacji
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion square>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary className="accordion" expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>
             Czym jest Fuzzy AHP
           </Typography>
@@ -65,7 +52,7 @@ export default function SimpleAccordion() {
       </Accordion>
 
       <Accordion square>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary className="accordion" expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>Przykładowy wybór</Typography>
         </AccordionSummary>
         <AccordionDetails>

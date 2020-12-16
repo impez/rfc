@@ -15,6 +15,7 @@ body {
 .main {
   width: 55%;
   margin: 0 auto;
+  transition: 1s width, 1s margin;
 }
 
 @media (max-width: 1440px) {
