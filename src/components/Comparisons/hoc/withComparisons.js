@@ -20,11 +20,15 @@ const pairs = (arr) => {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    flexDirection: "column",
     padding: "2.5em",
+    justifyContent: "center",
   },
   header: {
-    margin: "0 auto",
+    textAlign: "center",
     fontSize: "1.15em",
+    display: "block",
+    width: "100%",
   },
 }));
 
@@ -36,11 +40,7 @@ const withComparisons = (WrappedComponent) => {
       const componentsList = props.criterias.map((criteria) => {
         return (
           <Paper className={classes.root} key={criteria}>
-            <Typography
-              style={{ position: "absolute" }}
-              className={classes.header}
-              variant="caption"
-            >
+            <Typography className={classes.header} variant="caption">
               Określ preferencję wariantów pod względem:{" "}
               <Button
                 variant="contained"
@@ -66,11 +66,7 @@ const withComparisons = (WrappedComponent) => {
     } else {
       return (
         <Paper className={classes.root}>
-          <Typography
-            style={{ position: "absolute" }}
-            className={classes.header}
-            variant="caption"
-          >
+          <Typography className={classes.header} variant="caption">
             Określ preferencję kryteriów:
           </Typography>
           <WrappedComponent {...props} pairs={pairs(props.items)} />

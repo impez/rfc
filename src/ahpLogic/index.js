@@ -18,7 +18,7 @@ export class AHPUser {
 export class AHPItem {
   constructor(comps = {}, items = []) {
     this.comps = comps;
-    this.items = items.sort();
+    this.items = [...items].sort();
   }
 
   getComps = () => this.comps;
@@ -195,7 +195,7 @@ export class MathHelper {
       ? b - Math.sqrt((1 - u) * (b - a) * (b - c))
       : u === 0
       ? a
-      : b; // u === 1
+      : b;
   };
 
   static getConsistencyRatio = (matrix, weights) => {

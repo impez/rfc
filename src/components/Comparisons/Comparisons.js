@@ -26,14 +26,14 @@ const Comparisons = (props) => {
   });
 
   React.useEffect(() => {
-    setOutput(shuffle(sliders));
+    setOutput(sliders);
   }, []);
 
   return (
     <div
       style={{
         display: "flex",
-        flexWrap: "wrap",
+        flexDirection: "column",
         width: "100%",
       }}
     >

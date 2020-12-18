@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, makeStyles } from "@material-ui/core";
 import {
   BarChart,
   Bar,
@@ -13,13 +13,15 @@ import {
 } from "recharts";
 import { connect } from "react-redux";
 
+const useStyles = makeStyles({});
+
 const convertData = (data) => {
   return { name: data[0], weight: data[1] };
 };
 
 const Chart = (props) => {
   const [data, setData] = React.useState([]);
-  const jsfiddleUrl = "https://jsfiddle.net/alidingling/30763kr7/";
+  const classes = useStyles();
 
   React.useEffect(() => {
     if (props.data) {
@@ -62,11 +64,17 @@ const Chart = (props) => {
             left: 5,
             bottom: 5,
           }}
+          barSize={30}
         >
-          <CartesianGrid strokeDasharray="2 4" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            cursor={{
+              stroke: "black",
+              strokeWidth: 1,
+              opacity: "0.1",
+            }}
+          />
           <Legend />
           <Bar dataKey="weight" name={props.label} fill={props.color} />
         </BarChart>

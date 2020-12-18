@@ -11,6 +11,16 @@ export const nameReducer = (state = "Decydent-1", action) => {
   }
 };
 
+export const orientationReducer = (state = "horizontal", action) => {
+  switch (action.type) {
+    case "UPDATE_SLIDERS_ORIENTATION":
+      return action.payload;
+
+    default:
+      return state;
+  }
+};
+
 export const expertsGroupReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_EXPERT_METADATA":
@@ -109,6 +119,7 @@ export default combineReducers({
   expertName: nameReducer,
   expertsGroup: expertsGroupReducer,
   route: routeReducer,
+  orientation: orientationReducer,
   goal: goalReducer,
   criterias: criterionsReducer,
   variants: variantsReducer,

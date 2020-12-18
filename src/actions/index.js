@@ -5,6 +5,13 @@ export const updateExpertName = (expertName) => {
   };
 };
 
+export const slidersOrientation = (orientation) => {
+  return {
+    type: "UPDATE_SLIDERS_ORIENTATION",
+    payload: orientation,
+  };
+};
+
 export const addExpertMetadata = (metadata) => {
   return {
     type: "ADD_EXPERT_METADATA",

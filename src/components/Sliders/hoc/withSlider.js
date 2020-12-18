@@ -9,18 +9,22 @@ const CustomDivider = () => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "2em", // tutaj 2em auto dla standardowego
-    // slidery się środkują, które mają więcej miejsca wtedy
+    margin: "0em auto",
     opacity: "0.65",
     filter: "blur(1px)",
-    padding: "2em",
+    padding: "1.5em",
     transition: "0.15s opacity, 0.2s filter, 0.1s background-color",
-    width: "15%",
-    height: "300px",
+    width: "50%",
+    "&:nth-child(1)": {
+      marginTop: "2em",
+    },
     [theme.breakpoints.down("sm")]: {
-      width: "20%",
+      width: "100%",
       opacity: "1",
       filter: "blur(0px)",
+      "&:nth-child(1)": {
+        marginTop: "5em",
+      },
     },
     "&:hover": {
       opacity: "1",

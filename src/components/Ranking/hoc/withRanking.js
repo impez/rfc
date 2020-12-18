@@ -23,6 +23,7 @@ const withRanking = (WrappedComponent) => {
       for (const criteriaItem of decisionMaker.criteriaItems) {
         const rate = decisionMaker.getVariantRates();
         const variantRate = rate[criteriaItem];
+
         const variantItemOfAhp = new AHPItem(
           FuzzyMiddleman.getTransformed(variantRate, 100),
           decisionMaker.getVariantItems()

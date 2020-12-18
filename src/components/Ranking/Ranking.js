@@ -71,7 +71,7 @@ const Ranking = (props) => {
         </Button>
       </Grid>
       <Grid item md={8} xs={12}>
-        <Chart data={allRanks} label="Waga" color="#a68324" showText />
+        <Chart data={allRanks} label="Waga" color="#6d848a" showText />
       </Grid>
       <Grid item md={4} xs={12}>
         <TwoColumnTable type="variants" items={variantWeights} />
@@ -80,7 +80,7 @@ const Ranking = (props) => {
         <Chart
           data={crEntries}
           label="Współczynnik spójności"
-          color="#917836"
+          color="#87a9a8"
         />
       </Grid>
       <Grid item md={4} xs={12}>
