@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Ustal cel procesu", "Dobierz kryteria", "Dobierz warianty"];
+  return ["Set goal", "Set criteria", "Set alternatives"];
 }
 
 function isEmptyString(str) {
@@ -59,13 +59,13 @@ function isEmptyString(str) {
 function errorMessage(step) {
   switch (step) {
     case 0:
-      return "Cel nie może być pusty";
+      return "Goal can't be empty";
 
     case 1:
-      return "Wprowadź minimum dwa kryteria";
+      return "Enter at least two criteria";
 
     case 2:
-      return "Wprowadź minimum dwa warianty/opcje";
+      return "Enter at least two items";
 
     default:
       break;
@@ -105,7 +105,7 @@ function Start(props) {
           <div>
             <TextField
               id="standard-basic"
-              label="Wpisz cel"
+              label="Enter goal"
               value={props.goal}
               onChange={handleGoalChange}
             />
@@ -140,7 +140,7 @@ function Start(props) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
       if (activeStep >= 2) {
-        props.setRoute("kryteria");
+        props.setRoute("criteria");
         props.initCb(true);
       }
     }
@@ -172,7 +172,7 @@ function Start(props) {
                           onClick={handleBack}
                           className={classes.button}
                         >
-                          wstecz
+                          back
                         </Button>
                         <Button
                           variant="contained"
@@ -180,9 +180,7 @@ function Start(props) {
                           onClick={handleNext}
                           className={classes.button}
                         >
-                          {activeStep === steps.length - 1
-                            ? "rozpocznij"
-                            : "dalej"}
+                          {activeStep === steps.length - 1 ? "start" : "next"}
                         </Button>
                       </div>
                     </div>
@@ -197,7 +195,7 @@ function Start(props) {
         </Grid>
         <Grid item xs={12} md={12}>
           <TextField
-            label="ID (Opcjonalnie)"
+            label="ID (Optionally)"
             size="small"
             onChange={handleTextChange}
             value={props.expertName}

@@ -106,6 +106,8 @@ export const variantsReducer = (state = [], action) => {
 };
 
 export const routeReducer = (state = "start", action) => {
+  console.log(action.payload);
+
   switch (action.type) {
     case "SET_ROUTE":
       return action.payload;

@@ -13,20 +13,21 @@ const shuffle = (a) => {
 const Comparisons = (props) => {
   const [output, setOutput] = React.useState("");
 
-  const sliders = props.pairs.map((pair) => {
-    const [leftComp, rightComp] = [pair[0], pair[1]];
-    return (
-      <MultiSlider
-        leftComp={leftComp}
-        rightComp={rightComp}
-        criteria={props.criteria}
-        key={`${props.criteria}:${leftComp}:${rightComp}`}
-      />
-    );
-  });
-
   React.useEffect(() => {
-    setOutput(sliders);
+    const sliders = props.pairs.map((pair) => {
+      const [leftComp, rightComp] = [pair[0], pair[1]];
+      return (
+        <MultiSlider
+          leftComp={leftComp}
+          rightComp={rightComp}
+          criteria={props.criteria}
+          key={`${props.criteria}:${leftComp}:${rightComp}`}
+          update={props.update}
+        />
+      );
+    });
+
+    setOutput(shuffle(sliders));
   }, []);
 
   return (

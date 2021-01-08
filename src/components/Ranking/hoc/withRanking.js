@@ -1,6 +1,8 @@
 import React from "react";
 import { AHPUser, AHPItem, FuzzyMiddleman } from "../../../ahpLogic";
 import { connect } from "react-redux";
+import { Grid, Paper, Typography } from "@material-ui/core";
+import _ from "lodash";
 
 const withRanking = (WrappedComponent) => {
   let decisionMaker;
@@ -10,7 +12,7 @@ const withRanking = (WrappedComponent) => {
 
     const { criterias, variants, criteriasSliders, variantsSliders } = props;
 
-    React.useEffect(() => {
+    const initRanking = () => {
       const metadata = { criteriasRank: {}, variantsRank: {} };
 
       decisionMaker = new AHPUser({
@@ -64,9 +66,26 @@ const withRanking = (WrappedComponent) => {
         metadata["expert"] = props.expertName;
         setUserMetadata(metadata);
       }
-    }, []);
+    };
 
-    return <WrappedComponent {...props} metadata={userMetadata} />;
+    React.useEffect(() => {
+      if (!_.isEmpty(props.variantsSliders)) initRanking();
+    }, [props.variantsSliders]);
+
+    if (!_.isEmpty(props.variantsSliders) || !_.isEmpty(props.criteriasSliders))
+      return <WrappedComponent {...props} metadata={userMetadata} />;
+    else
+      return (
+        <Grid style={{ height: "50vh" }} container component={Paper}>
+          <Typography
+            variant="h4"
+            style={{ margin: "auto auto", opacity: "30%", width: "50%" }}
+          >
+            Can't obtain needed input. Either judge your preference first or
+            initialize the AHP process in the Start tab.
+          </Typography>
+        </Grid>
+      );
   });
 };
 

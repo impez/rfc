@@ -41,7 +41,7 @@ const withComparisons = (WrappedComponent) => {
         return (
           <Paper className={classes.root} key={criteria}>
             <Typography className={classes.header} variant="caption">
-              Określ preferencję wariantów pod względem:{" "}
+              Judge your preference in terms of:{" "}
               <Button
                 variant="contained"
                 disableElevation
@@ -67,7 +67,7 @@ const withComparisons = (WrappedComponent) => {
       return (
         <Paper className={classes.root}>
           <Typography className={classes.header} variant="caption">
-            Określ preferencję kryteriów:
+            Judge your preference:
           </Typography>
           <WrappedComponent {...props} pairs={pairs(props.items)} />
         </Paper>

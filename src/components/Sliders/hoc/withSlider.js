@@ -2,9 +2,15 @@ import React from "react";
 import { makeStyles, Divider } from "@material-ui/core";
 import { updateCriteriaSlider, updateVariantSlider } from "../../../actions";
 import { connect } from "react-redux";
+import cloneDeep from "lodash.clonedeep";
 
 const CustomDivider = () => {
   return <Divider style={{ opacity: "0.8" }} variant="fullWidth"></Divider>;
+};
+
+const isEmptyObject = (obj) => {
+  if (obj === undefined) return true;
+  return Object.entries(obj).length === 0 ? true : false;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -45,19 +51,39 @@ const withSlider = (WrappedComponent, settings) => {
     updateVariantSlider,
   })((props) => {
     const classes = useStyles();
-    const isCriteriaPresent = props.criteria ? true : false;
+    const wasSliderInitialized = props.savedValue === undefined ? false : true;
     const [value, setValue] = React.useState(
-      isCriteriaPresent
-        ? props.variantsSliders[props.criteria] === undefined
-          ? [-1, 0, 1]
-          : props.variantsSliders[props.criteria][
-              `${props.leftComp}:${props.rightComp}`
-            ]
-        : Object.keys(props.criteriasSliders).length === 0
-        ? [-1, 0, 1]
-        : props.criteriasSliders[`${props.leftComp}:${props.rightComp}`]
+      wasSliderInitialized ? props.savedValue : [-1, 0, 1]
     );
     const [min, max] = [-8, 8];
+    const valueRef = React.useRef();
+
+    React.useEffect(() => {
+      valueRef.current = value;
+    }, [value]);
+
+    React.useEffect(() => {
+      const {
+        criteria,
+        leftComp,
+        rightComp,
+        updateCriteriaSlider,
+        updateVariantSlider,
+      } = props;
+      const isCriteriaPresent = criteria === undefined ? false : true;
+
+      return () => {
+        if (isCriteriaPresent)
+          updateVariantSlider(criteria, leftComp, rightComp, valueRef.current);
+        else {
+          updateCriteriaSlider(leftComp, rightComp, valueRef.current);
+        }
+      };
+    }, []);
+
+    const handleChange = (e, newValue) => {
+      setValue(newValue);
+    };
 
     const marks = [
       {
@@ -69,31 +95,6 @@ const withSlider = (WrappedComponent, settings) => {
         label: props.rightComp,
       },
     ];
-
-    React.useEffect(() => {
-      if (isCriteriaPresent)
-        props.updateVariantSlider(
-          props.criteria,
-          props.leftComp,
-          props.rightComp,
-          value
-        );
-      else props.updateCriteriaSlider(props.leftComp, props.rightComp, value);
-    }, []);
-
-    const handleChange = (e, newValue) => {
-      setValue(newValue);
-
-      if (isCriteriaPresent)
-        props.updateVariantSlider(
-          props.criteria,
-          props.leftComp,
-          props.rightComp,
-          newValue
-        );
-      else
-        props.updateCriteriaSlider(props.leftComp, props.rightComp, newValue);
-    };
 
     return (
       <div className={classes.root}>
@@ -112,8 +113,23 @@ const withSlider = (WrappedComponent, settings) => {
   });
 };
 
-const mapStateToProps = (state) => {
-  return state;
+const mapStateToProps = (state, ownProps) => {
+  const { leftComp, rightComp, criteria } = ownProps;
+  const wasInitialized = criteria
+    ? state.variantsSliders[criteria]
+      ? true
+      : false
+    : true;
+  const comp = `${leftComp}:${rightComp}`;
+  const savedValue = wasInitialized
+    ? criteria
+      ? state.variantsSliders[criteria][comp]
+      : state.criteriasSliders[comp]
+    : undefined;
+
+  return {
+    savedValue: savedValue,
+  };
 };
 
 export default withSlider;

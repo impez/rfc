@@ -10,7 +10,7 @@ const Experts = (props) => {
   };
 
   const handleNewExpert = () => {
-    props.setRoute("kryteria");
+    props.setRoute("criteria");
   };
 
   return (
@@ -38,7 +38,7 @@ const Experts = (props) => {
           label="ID"
           value={props.expertName}
         />
-        <Button onClick={handleNewExpert}>nowy ekspert</Button>
+        <Button onClick={handleNewExpert}>new decision-maker</Button>
       </Grid>
       <Grid item xs={12}>
         <ExpertsAccordion expertsData={props.expertsGroup} />
