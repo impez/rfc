@@ -23,7 +23,7 @@ import Experts from "./components/Experts/Experts";
 import { setRoute } from "./actions";
 import { connect } from "react-redux";
 
-const menuItems = ["start", "criteria", "alternatives", "ranking", "experts"];
+const menuItems = ["start", "kryteria", "warianty", "ranking", "decydenci"];
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="standard" {...props} />;
@@ -56,27 +56,16 @@ const App = (props) => {
     setOpen(false);
   };
 
-  /*
-  const areSlidersLoaded = () =>
-    Object.keys(props.variantsSliders).length === 0 ||
-    Object.keys(props.criteriasSliders).length === 0
-      ? false
-      : true;
-*/
-
   const setIcon = (label, size) => {
     switch (label) {
       case "start":
         return <StartIcon fontSize={size} />;
       case "warianty":
-      case "alternatives":
       case "kryteria":
-      case "criteria":
         return <ComparisonsIcon fontSize={size} />;
       case "ranking":
         return <RankingIcon fontSize={size} />;
       case "decydenci":
-      case "experts":
         return <ExpertsIcon fontSize={size} />;
       default:
         break;
@@ -89,12 +78,7 @@ const App = (props) => {
 
     //if (label === "ranking") disableCb = !areSlidersLoaded();
 
-    if (
-      label === "criteria" ||
-      label === "alternatives" ||
-      label === "warianty" ||
-      label === "decydenci"
-    )
+    if (label === "warianty" || label === "decydenci" || label === "kryteria")
       disableCb = !init;
 
     if (label === "start") disableCb = init;
@@ -156,26 +140,26 @@ const App = (props) => {
         <Start initCb={initAhp} />
       </TabPanel>
 
-      <TabPanel value={route} index="criteria" padding={padding}>
+      <TabPanel value={route} index="kryteria" padding={padding}>
         <Comparisons items={criterias} update={update} />
         <Button
           fullWidth
           size="large"
           variant="contained"
           style={{ margin: "0.5em 0" }}
-          onClick={() => setRoute("alternatives")}
+          onClick={() => setRoute("warianty")}
         >
-          Next
+          Dalej
         </Button>
 
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="info">
-            Continuation as {expertName}
+            Kontynuacja jako {expertName}
           </Alert>
         </Snackbar>
       </TabPanel>
 
-      <TabPanel value={route} index="alternatives" padding={padding}>
+      <TabPanel value={route} index="warianty" padding={padding}>
         <Comparisons items={variants} criterias={criterias} />
         <Button
           fullWidth
@@ -184,7 +168,7 @@ const App = (props) => {
           style={{ margin: "0.5em 0" }}
           onClick={() => setRoute("ranking")}
         >
-          Finish
+          Zakończ
         </Button>
       </TabPanel>
 
@@ -192,7 +176,7 @@ const App = (props) => {
         <Ranking />
       </TabPanel>
 
-      <TabPanel value={route} index="experts" padding={padding}>
+      <TabPanel value={route} index="decydenci" padding={padding}>
         <Experts />
       </TabPanel>
     </div>
@@ -204,6 +188,7 @@ const mapStateToProps = (state) => {
     route: state.route,
     criterias: state.criterias,
     variants: state.variants,
+    block: state.block,
     expertName: state.expertName,
   };
 };

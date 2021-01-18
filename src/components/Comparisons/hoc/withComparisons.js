@@ -6,6 +6,7 @@ import {
   Typography,
   Divider,
 } from "@material-ui/core";
+import _ from "lodash";
 
 const pairs = (arr) => {
   const pairs = [];
@@ -41,7 +42,7 @@ const withComparisons = (WrappedComponent) => {
         return (
           <Paper className={classes.root} key={criteria}>
             <Typography className={classes.header} variant="caption">
-              Judge your preference in terms of:{" "}
+              Oceń preferencję w oparciu o:{" "}
               <Button
                 variant="contained"
                 disableElevation
@@ -67,7 +68,7 @@ const withComparisons = (WrappedComponent) => {
       return (
         <Paper className={classes.root}>
           <Typography className={classes.header} variant="caption">
-            Judge your preference:
+            Oceń preferencję:
           </Typography>
           <WrappedComponent {...props} pairs={pairs(props.items)} />
         </Paper>

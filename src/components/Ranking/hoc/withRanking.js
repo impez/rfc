@@ -81,8 +81,8 @@ const withRanking = (WrappedComponent) => {
             variant="h4"
             style={{ margin: "auto auto", opacity: "30%", width: "50%" }}
           >
-            Can't obtain needed input. Either judge your preference first or
-            initialize the AHP process in the Start tab.
+            Nie można osiągnąć żądanego wejścia. Najpierw oceń preferencję lub
+            zainicjalizuj proces AHP.
           </Typography>
         </Grid>
       );

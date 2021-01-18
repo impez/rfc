@@ -54,7 +54,7 @@ function CriteriasList(props) {
     <div>
       <TextField
         className={classes.margin}
-        label="Enter criterion"
+        label="Wpisz kryterium"
         value={props.text}
         onChange={props.onTextChange}
         InputProps={{

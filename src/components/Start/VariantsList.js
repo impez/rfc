@@ -54,7 +54,7 @@ function VariantsList(props) {
     <div>
       <TextField
         className={classes.margin}
-        label="Enter alternative"
+        label="Wpisz wariant"
         value={props.text}
         onChange={props.onTextChange}
         InputProps={{

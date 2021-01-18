@@ -26,7 +26,7 @@ const Ranking = (props) => {
   const { finalRank } = props.metadata;
 
   const handleSave = () => {
-    props.setRoute("experts");
+    props.setRoute("decydenci");
     props.addExpertMetadata(props.metadata);
     props.updateExpertName(`Decydent-${props.expertsGroup.length + 2}`);
     props.resetSliders();
@@ -67,17 +67,21 @@ const Ranking = (props) => {
           style={{ width: "100%" }}
           variant="outlined"
         >
-          save
+          zapisz
         </Button>
       </Grid>
       <Grid item md={8} xs={12}>
-        <Chart data={allRanks} label="Weight" color="#6d848a" showText />
+        <Chart data={allRanks} label="Waga" color="#6d848a" showText />
       </Grid>
       <Grid item md={4} xs={12}>
         <TwoColumnTable type="variants" items={variantWeights} />
       </Grid>
       <Grid item md={8} xs={12}>
-        <Chart data={crEntries} label="Consistency Ratio" color="#87a9a8" />
+        <Chart
+          data={crEntries}
+          label="Współczynnik spójności"
+          color="#87a9a8"
+        />
       </Grid>
       <Grid item md={4} xs={12}>
         <TwoColumnTable type="variants_crs" items={variantConsistencyRatios} />

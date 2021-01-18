@@ -12,6 +12,13 @@ export const slidersOrientation = (orientation) => {
   };
 };
 
+export const blockEval = (state) => {
+  return {
+    type: "BLOCK_EVALUATION",
+    payload: state,
+  };
+};
+
 export const addExpertMetadata = (metadata) => {
   return {
     type: "ADD_EXPERT_METADATA",

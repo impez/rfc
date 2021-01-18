@@ -11,6 +11,13 @@ export const nameReducer = (state = "Decydent-1", action) => {
   }
 };
 
+export const blockReducer = (state = true, action) => {
+  switch (action.type) {
+    case "BLOCK_EVALUATION":
+      return action.payload;
+  }
+};
+
 export const orientationReducer = (state = "horizontal", action) => {
   switch (action.type) {
     case "UPDATE_SLIDERS_ORIENTATION":
@@ -127,4 +134,5 @@ export default combineReducers({
   variants: variantsReducer,
   criteriasSliders: criteriasSlidersReducer,
   variantsSliders: variantsSlidersReducer,
+  block: blockReducer,
 });

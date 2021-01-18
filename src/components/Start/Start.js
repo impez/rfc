@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Set goal", "Set criteria", "Set alternatives"];
+  return ["Ustal cel", "Dobierz kryteria", "Dobierz warianty"];
 }
 
 function isEmptyString(str) {
@@ -59,13 +59,13 @@ function isEmptyString(str) {
 function errorMessage(step) {
   switch (step) {
     case 0:
-      return "Goal can't be empty";
+      return "Cel nie może być pusty";
 
     case 1:
-      return "Enter at least two criteria";
+      return "Wpisz co najmniej dwa kryteria";
 
     case 2:
-      return "Enter at least two items";
+      return "Wpisz co najmniej dwie alternatywy";
 
     default:
       break;
@@ -105,7 +105,7 @@ function Start(props) {
           <div>
             <TextField
               id="standard-basic"
-              label="Enter goal"
+              label="Wpisz cel"
               value={props.goal}
               onChange={handleGoalChange}
             />
@@ -140,7 +140,7 @@ function Start(props) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
       if (activeStep >= 2) {
-        props.setRoute("criteria");
+        props.setRoute("kryteria");
         props.initCb(true);
       }
     }
@@ -172,7 +172,7 @@ function Start(props) {
                           onClick={handleBack}
                           className={classes.button}
                         >
-                          back
+                          wstecz
                         </Button>
                         <Button
                           variant="contained"
@@ -180,7 +180,7 @@ function Start(props) {
                           onClick={handleNext}
                           className={classes.button}
                         >
-                          {activeStep === steps.length - 1 ? "start" : "next"}
+                          {activeStep === steps.length - 1 ? "start" : "dalej"}
                         </Button>
                       </div>
                     </div>
@@ -195,7 +195,7 @@ function Start(props) {
         </Grid>
         <Grid item xs={12} md={12}>
           <TextField
-            label="ID (Optionally)"
+            label="ID (Opcjonalnie)"
             size="small"
             onChange={handleTextChange}
             value={props.expertName}

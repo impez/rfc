@@ -50,7 +50,7 @@ const Chart = (props) => {
           style={{ position: "absolute", alignSelf: "center" }}
           variant="overline"
         >
-          Goal: {props.goal}
+          Cel: {props.goal}
         </Typography>
       ) : (
         ""

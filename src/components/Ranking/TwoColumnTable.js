@@ -32,19 +32,19 @@ const createRows = (data) => {
 const label = (type) => {
   switch (type) {
     case "criterias":
-      return { firCol: "Criterion", secCol: "Weight" };
+      return { firCol: "Kryterium", secCol: "Waga" };
 
     case "variants":
-      return { firCol: "Alternative", secCol: "Weight" };
+      return { firCol: "Wariant", secCol: "Waga" };
 
     case "variants_crs":
       return {
-        firCol: "Criterion",
+        firCol: "Kryterium",
         secCol: (
           <div>
-            Consistency Ratio
+            Współczynnik spójności
             <p style={{ fontSize: "0.8em", opacity: "0.50" }}>
-              (judging alternatives based on each criterion)
+              (oceniając warianty na podstawie danego kryterium)
             </p>
           </div>
         ),
