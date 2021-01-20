@@ -9,6 +9,7 @@ import {
   updateExpertName,
   resetSliders,
   addExpertMetadata,
+  blockEval,
 } from "../../actions";
 
 const mergeObjects = (arrObj) => Object.assign({}, ...arrObj);
@@ -30,6 +31,7 @@ const Ranking = (props) => {
     props.addExpertMetadata(props.metadata);
     props.updateExpertName(`Decydent-${props.expertsGroup.length + 2}`);
     props.resetSliders();
+    props.blockEval(true);
   };
 
   React.useEffect(() => {
@@ -102,4 +104,5 @@ export default connect(mapStateToProps, {
   updateExpertName,
   addExpertMetadata,
   resetSliders,
+  blockEval,
 })(withRanking(Ranking));

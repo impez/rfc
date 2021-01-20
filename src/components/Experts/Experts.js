@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Paper, Button, TextField } from "@material-ui/core";
-import { updateExpertName, setRoute } from "../../actions";
+import { updateExpertName, setRoute, blockEval } from "../../actions";
 import { connect } from "react-redux";
 import ExpertsAccordion from "./ExpertsAccordion";
 
@@ -11,6 +11,7 @@ const Experts = (props) => {
 
   const handleNewExpert = () => {
     props.setRoute("kryteria");
+    props.blockEval(false);
   };
 
   return (
@@ -51,6 +52,8 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { updateExpertName, setRoute })(
-  Experts
-);
+export default connect(mapStateToProps, {
+  updateExpertName,
+  setRoute,
+  blockEval,
+})(Experts);
