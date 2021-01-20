@@ -12,6 +12,13 @@ export const slidersOrientation = (orientation) => {
   };
 };
 
+export const start = (state) => {
+  return {
+    type: "START_PROCESS",
+    payload: state,
+  };
+};
+
 export const blockEval = (state) => {
   return {
     type: "BLOCK_EVALUATION",

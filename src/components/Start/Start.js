@@ -16,7 +16,13 @@ import SimpleAccordion from "./SimpleAccordion";
 import CriteriasList from "./CriteriasList";
 import VariantsList from "./VariantsList";
 import { connect } from "react-redux";
-import { updateGoal, updateExpertName, setRoute } from "../../actions";
+import {
+  updateGoal,
+  updateExpertName,
+  setRoute,
+  start,
+  blockEval,
+} from "../../actions";
 import MuiAlert from "@material-ui/lab/Alert";
 
 function Alert(props) {
@@ -142,6 +148,8 @@ function Start(props) {
       if (activeStep >= 2) {
         props.setRoute("kryteria");
         props.initCb(true);
+        props.start(true);
+        props.blockEval(false);
       }
     }
   };
@@ -224,4 +232,6 @@ export default connect(mapStateToProps, {
   updateGoal,
   updateExpertName,
   setRoute,
+  start,
+  blockEval,
 })(Start);

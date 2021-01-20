@@ -15,6 +15,19 @@ export const blockReducer = (state = true, action) => {
   switch (action.type) {
     case "BLOCK_EVALUATION":
       return action.payload;
+
+    default:
+      return state;
+  }
+};
+
+export const startReducer = (state = false, action) => {
+  switch (action.type) {
+    case "START_PROCESS":
+      return action.payload;
+
+    default:
+      return state;
   }
 };
 
@@ -135,4 +148,5 @@ export default combineReducers({
   criteriasSliders: criteriasSlidersReducer,
   variantsSliders: variantsSlidersReducer,
   block: blockReducer,
+  started: startReducer,
 });

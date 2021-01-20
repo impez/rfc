@@ -72,23 +72,28 @@ const App = (props) => {
     }
   };
 
+  const setBlock = (label) => {
+    switch (label) {
+      case "start":
+        return props.started;
+      case "kryteria":
+      case "warianty":
+      case "ranking":
+        return props.block;
+      default:
+        return props.block;
+    }
+  };
+
   const tabItems = menuItems.map((label) => {
     const isBigDisplay = tabsVariant === "fullWidth" ? true : false;
-    let disableCb;
-
-    //if (label === "ranking") disableCb = !areSlidersLoaded();
-
-    if (label === "warianty" || label === "decydenci" || label === "kryteria")
-      disableCb = !init;
-
-    if (label === "start") disableCb = init;
 
     return (
       <Tab
         value={label}
         label={isBigDisplay ? label : ""}
         key={label}
-        disabled={disableCb}
+        disabled={setBlock(label)}
         icon={setIcon(label, isBigDisplay ? "default" : "large")}
       />
     );
@@ -189,6 +194,7 @@ const mapStateToProps = (state) => {
     criterias: state.criterias,
     variants: state.variants,
     block: state.block,
+    started: state.started,
     expertName: state.expertName,
   };
 };
